@@ -1,5 +1,6 @@
 package com.unihub.service;
 
+import com.unihub.config.JwtUtils;
 import com.unihub.dto.UserLoginRequest;
 import com.unihub.dto.UserRegisterRequest;
 import com.unihub.dto.UserResponse;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
 
     public UserResponse registerUser(UserRegisterRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
@@ -51,11 +52,13 @@ public class UserService {
     }
 
     private UserResponse mapToResponse(User user) {
+        String token = jwtUtils.generateToken(user.getEmail());
         return UserResponse.builder()
                 .id(user.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .token(token)
                 .createdAt(user.getCreatedAt())
                 .build();
     }

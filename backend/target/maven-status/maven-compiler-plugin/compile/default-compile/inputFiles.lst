@@ -1,5 +1,7 @@
 C:\Playground\University Resource Hub\backend\src\main\java\com\unihub\config\GlobalExceptionHandler.java
+C:\Playground\University Resource Hub\backend\src\main\java\com\unihub\config\JwtAuthenticationFilter.java
 C:\Playground\University Resource Hub\backend\src\main\java\com\unihub\config\JwtConfig.java
+C:\Playground\University Resource Hub\backend\src\main\java\com\unihub\config\JwtUtils.java
 C:\Playground\University Resource Hub\backend\src\main\java\com\unihub\config\SecurityConfig.java
 C:\Playground\University Resource Hub\backend\src\main\java\com\unihub\config\WebSecurityConfig.java
 C:\Playground\University Resource Hub\backend\src\main\java\com\unihub\controller\AuthController.java
