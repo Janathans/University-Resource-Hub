@@ -24,6 +24,5 @@ public class ResourceRequest {
     @NotBlank(message = "Module name is required")
     private String moduleName;
     
-    @NotNull(message = "Uploader ID is required")
     private Long uploadedById;
 }
