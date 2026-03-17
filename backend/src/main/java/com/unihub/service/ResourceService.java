@@ -19,8 +19,8 @@ public class ResourceService {
     private final ResourceRepository resourceRepository;
     private final UserService userService;
 
-    public ResourceResponse uploadResource(ResourceRequest request) {
-        User uploader = userService.findById(request.getUploadedById());
+    public ResourceResponse uploadResource(ResourceRequest request, String userEmail) {
+        User uploader = userService.findByEmail(userEmail);
 
         Resource resource = Resource.builder()
                 .title(request.getTitle())
@@ -34,6 +34,12 @@ public class ResourceService {
 
         Resource savedResource = resourceRepository.save(resource);
         return mapToResponse(savedResource);
+    }
+
+    public List<ResourceResponse> getMyResources(String email) {
+        return resourceRepository.findByUploadedByEmail(email).stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     public List<ResourceResponse> getAllResources() {
