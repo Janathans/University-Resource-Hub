@@ -26,6 +26,7 @@ const Login = () => {
 
       if (response.ok && data.token) {
         localStorage.setItem('token', data.token)
+        localStorage.setItem('user', JSON.stringify(data))
         navigate('/')
       } else {
         setError(data.message || 'Invalid email or password')
