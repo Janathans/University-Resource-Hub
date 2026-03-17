@@ -7,12 +7,13 @@ import com.unihub.dto.UserResponse;
 import com.unihub.entity.User;
 import com.unihub.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -20,7 +21,9 @@ public class UserService {
     private final JwtUtils jwtUtils;
 
     public UserResponse registerUser(UserRegisterRequest request) {
+        log.info("Attempting to register user with email: {}", request.getEmail());
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            log.warn("Registration failed: Email {} already exists", request.getEmail());
             throw new RuntimeException("Email already exists");
         }
 
@@ -31,7 +34,9 @@ public class UserService {
                 .role(request.getRole())
                 .build();
 
+        log.info("Saving new user to database...");
         User savedUser = userRepository.save(user);
+        log.info("User saved successfully with ID: {}", savedUser.getId());
         return mapToResponse(savedUser);
     }
 
