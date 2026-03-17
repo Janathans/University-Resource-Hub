@@ -10,8 +10,10 @@ import java.util.List;
 
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
     
-    List<Resource> findByTitleContainingIgnoreCase(String title);
+    List<Resource> findByUploadedByEmail(String email);
     
+    List<Resource> findByTitleContainingIgnoreCase(String title);
+
     @Query("SELECT r FROM Resource r WHERE " +
            "( :degreeProgram IS NULL OR r.degreeProgram = :degreeProgram ) AND " +
            "( :resourceType IS NULL OR r.resourceType = :resourceType )")

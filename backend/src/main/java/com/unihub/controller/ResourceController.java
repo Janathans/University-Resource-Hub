@@ -20,8 +20,13 @@ public class ResourceController {
     private final ResourceService resourceService;
 
     @PostMapping
-    public ResponseEntity<ResourceResponse> uploadResource(@Valid @RequestBody ResourceRequest request) {
-        return new ResponseEntity<>(resourceService.uploadResource(request), HttpStatus.CREATED);
+    public ResponseEntity<ResourceResponse> uploadResource(@Valid @RequestBody ResourceRequest request, java.security.Principal principal) {
+        return new ResponseEntity<>(resourceService.uploadResource(request, principal.getName()), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/my-uploads")
+    public ResponseEntity<List<ResourceResponse>> getMyResources(java.security.Principal principal) {
+        return ResponseEntity.ok(resourceService.getMyResources(principal.getName()));
     }
 
     @GetMapping
