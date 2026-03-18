@@ -31,6 +31,8 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/resources/**").permitAll()
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/universities/**").permitAll()
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/fields/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

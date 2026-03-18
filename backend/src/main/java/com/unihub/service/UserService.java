@@ -27,10 +27,18 @@ public class UserService {
             throw new RuntimeException("Email already exists");
         }
 
+        request.updateFullName();
+
         User user = User.builder()
                 .fullName(request.getFullName())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .universityId(request.getUniversityId())
+                .universityName(request.getUniversityName())
+                .fieldId(request.getFieldId())
+                .fieldName(request.getFieldName())
                 .role(request.getRole())
                 .build();
 
