@@ -7,8 +7,13 @@ import lombok.Data;
 
 @Data
 public class UserRegisterRequest {
-    @NotBlank(message = "Full name is required")
     private String fullName;
+
+    @NotBlank(message = "First name is required")
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    private String lastName;
     
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
@@ -17,5 +22,16 @@ public class UserRegisterRequest {
     @NotBlank(message = "Password is required")
     private String password;
     
+    private Long universityId;
+    private String universityName;
+    private Long fieldId;
+    private String fieldName;
+    
     private UserRole role = UserRole.STUDENT;
+
+    public void updateFullName() {
+        if (firstName != null && lastName != null) {
+            this.fullName = firstName + " " + lastName;
+        }
+    }
 }
